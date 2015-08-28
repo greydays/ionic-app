@@ -1,15 +1,21 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {
+.controller('DashCtrl', ['$scope', function($scope) {
   $scope.parseFloat = function(value) {
     return parseFloat(value);
   };
-  $scope.focalVal = parseFloat(focal.option);
-  var apertureVal = parseFloat(aperture.option);
-  var cOfCVal = parseFloat(cOfC.option);
+  $scope.toast = function(value) {
+    return value * 3;
+  }
 
-  $scope.hyperFocal = (focalVal * focalVal) / (apertureVal * cOfCVal) + focalVal;
-})
+  $scope.nearDepth = function(cOfC, focal, aperture, distance) {
+    console.log(cOfC);
+    var hyperFocal = (parseFloat(focal) * parseFloat(focal)) / (parseFloat(aperture) * parseFloat(cOfC)) + parseFloat(focal);
+    console.log(hyperFocal);
+    return ((hyperFocal - focal) * distance) / (hyperFocal + distance - (2 * focal));
+  }
+
+}])
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called

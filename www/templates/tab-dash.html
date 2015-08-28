@@ -1,14 +1,14 @@
 <ion-view view-title="Dashboard">
   <ion-content class="padding">
-    <section class="list card">
+    <section class="list card" data-ng-controller="DashCtrl">
       <div class="item item-divider">Calc A</div>
-      <div class="item item-body" data-ng-controller="DashCtrl">
+      <div class="item item-body">
         <label for="cOfC">CofC</label>
         <select name="cOfC" id="cOfC" data-ng-model="cOfC.option">
           <option value="0.011">0.011</option>
           <option value="0.015">0.015</option>
           <option value="0.018">0.018</option>
-          <option value="0.019" selected="selected">0.019</option>
+          <option value="0.019" selected>0.019</option>
           <option value="0.020">0.020</option>
           <option value="0.030">0.030</option>
         </select>
@@ -181,7 +181,7 @@
           <option value="52.0">52</option>
           <option value="53.0">53</option>
           <option value="54.0">54</option>
-          <option value="55.0" selected="selected">55</option>
+          <option value="55.0" selected>55</option>
           <option value="55.2">55.2</option>
           <option value="56.0">56</option>
           <option value="58.0">58</option>
@@ -303,7 +303,7 @@
           <option value="12.699208">f/12.7</option>
           <option value="13.454343">f/13.5</option>
           <option value="14.254379">f/14.3</option>
-          <option value="16.000000" selected="selected">f/16</option>
+          <option value="16.000000" selected>f/16</option>
           <option value="17.959393">f/18</option>
           <option value="19.027314">f/19</option>
           <option value="20.158737">f/20</option>
@@ -315,18 +315,18 @@
           <option value="45.254834">f/45</option>
           <option value="64">f/64</option>
         </select>
-        <label for="distance">Distance (m)</label>
+        <label for="distance" class="input-label">Distance (m)</label>
         <input type="number" data-ng-model="distance.input" value="10">
         <label>{{hyperFocal}}</label>
         <label>Near Limit:
-          {{((hyperFocal - parseFloat(focal.option)) * parseFloat(distance.input)) / (hyperFocal + parseFloat(distance.input) - (parseFloat(distance.input) * 2))}}
+          {{toast(cOfC.option)}}
         </label>
       </div>
     </section>
     <section class="list card">
       <div class="item item-divider">Health</div>
       <div class="item item-body">
-        <h3>{{focalVal}}</h3>
+        <h3>{{nearDepth(cOfC.option, focal.option, aperture.option, distance.input)}}</h3>
       </div>
     </section>
     <section class="list card">
