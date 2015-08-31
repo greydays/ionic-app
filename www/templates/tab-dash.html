@@ -1,18 +1,15 @@
-<ion-view view-title="Dashboard">
-  <ion-content class="padding">
-    <section class="list card" data-ng-controller="DashCtrl">
-      <div class="item item-divider">Calc A</div>
-      <div class="item item-body">
-        <label for="cOfC">CofC</label>
+<ion-view view-title="Depth of Field">
+  <ion-content class="padding" data-ng-controller="DashCtrl">
+
+      <label class="item item-input">
+        <span class="input-label">Circle of Confusion:</span>
         <select name="cOfC" id="cOfC" data-ng-model="cOfC.option">
-          <option value="0.011">0.011</option>
-          <option value="0.015">0.015</option>
-          <option value="0.018">0.018</option>
-          <option value="0.019" selected>0.019</option>
-          <option value="0.020">0.020</option>
-          <option value="0.030">0.030</option>
+          <option data-ng-repeat="option in data.cOfCOptions" value="{{option.val}}">{{option.name}}</option>
         </select>
-        <label for="focal">Focal Length (mm)</label>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">Focal Length (mm):</span>
         <select name="focal" id="focal" data-ng-model="focal.option">
           <option value="3">3</option>
           <option value="3.6">3.6</option>
@@ -271,7 +268,10 @@
           <option value="1000.0">1000</option>
           <option value="1200.0">1200</option>
         </select>
-        <label for="aperture">F-Stop/Aperture</label>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">F-Stop/Aperture:</span>
         <select name="aperture" id="aperture" data-ng-model="aperture.option">
           <option value="1">f/1</option>
           <option value="1.189207">f/1.2</option>
@@ -315,27 +315,18 @@
           <option value="45.254834">f/45</option>
           <option value="64">f/64</option>
         </select>
-        <label for="distance" class="input-label">Distance (m)</label>
-        <input type="number" data-ng-model="distance.input" value="10">
-        <label>{{hyperFocal}}</label>
-        <label>Near Limit:
-          {{toast(cOfC.option)}}
-        </label>
-      </div>
+      </label>
+      <label class="item item-input">
+        <span class="input-label">Distance (m):</span>
+        <input type="number" data-ng-model="distance.input">
+      </label>
     </section>
     <section class="list card">
-      <div class="item item-divider">Health</div>
-      <div class="item item-body">
-        <h3>{{nearDepth(cOfC.option, focal.option, aperture.option, distance.input)}}</h3>
+      <div class="item item-divider">Depth of Field</div>
+      <label class="item item-input">
+        <span class="input-label">Near Limit:</span>
+        {{nearDepth(cOfC.option, focal.option, aperture.option, distance.input)}} m
       </div>
-    </section>
-    <section class="list card">
-      <div class="item item-divider">Upcoming</div>
-      <div class="item item-body">
-        <div>
-          You have <b>29</b> meetings on your calendar tomorrow.
-        </div>
-      </div>
-    </section>
+
   </ion-content>
 </ion-view>
