@@ -3,7 +3,7 @@
     <div class="list">
 
       <label class="item item-input item-select">
-        <span class="input-label">Circle of Confusion:</span>
+        <span class="input-label">Circle of Confusion (mm):</span>
         <select data-ng-model="cOfC" data-ng-options="option.name for option in cOfCOptions track by option.value"></select>
       </label>
 
@@ -14,7 +14,7 @@
       </label>
 
       <label class="item item-input item-select">
-        <span class="input-label">F-Stop/Aperture:</span>
+        <span class="input-label">F-Stop:</span>
         <select data-ng-model="aperture" data-ng-options="option.name for option in apertureOptions track by option.value"></select>
       </label>
 
@@ -25,10 +25,31 @@
     </section>
     <section class="list card">
       <div class="item item-divider">Depth of Field</div>
-      <label class="item item-input">
+        <label class="item item-input">
         <span class="input-label">Near Limit:</span>
         {{nearDepth(cOfC, focal, aperture, distance.value)}} m
+        </label>
+        <label class="item item-input">
+        <span class="input-label">Far Limit:</span>
+        {{farDepth(cOfC, focal, aperture, distance.value)}} m
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Total:</span>
+          {{}} m
+        </label>
+        <label class="item item-input">
+          <span class="input-label">In Front of:</span>
+          {{}} m ({{}}%)
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Behind:</span>
+          {{}} m ({{}}%)
+        </label>
+        <label class="item item-input">
+          <span class="input-label">Hyperfocal:</span>
+          {{}} m
+        </label>
       </div>
-    </div>
+    </section>
   </ion-content>
 </ion-view>

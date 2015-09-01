@@ -327,8 +327,16 @@ angular.module('starter.controllers', [])
     var hyperFocal = (focalVal * focalVal) / (apertureVal * cOfCVal) + focalVal;
     var nearDepthCalc = (((hyperFocal - focalVal) * distanceVal) / (hyperFocal + distanceVal - (2 * focalVal))) / 1000.0;
     return Math.round(nearDepthCalc * 100) / 100;
-  }
-
+  };
+  $scope.farDepth = function(cOfC, focal, aperture, distance) {
+    var focalVal = focal.value;
+    var apertureVal = aperture.value;
+    var cOfCVal = cOfC.value;
+    var distanceVal = parseFloat(distance) * 1000;
+    var hyperFocal = (focalVal * focalVal) / (apertureVal * cOfCVal) + focalVal;
+    var farDepthCalc = (((hyperFocal - focalVal) * distanceVal) / (hyperFocal - distanceVal)) / 1000.0;
+    return Math.round(farDepthCalc * 100) / 100;
+  };
 }])
 
 .controller('ChatsCtrl', function($scope, Chats) {
