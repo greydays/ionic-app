@@ -1,0 +1,34 @@
+<ion-view view-title="Depth of Field">
+  <ion-content class="padding" data-ng-controller="DepthOfFieldCtrl">
+    <div class="list">
+
+      <label class="item item-input item-select">
+        <span class="input-label">Circle of Confusion:</span>
+        <select data-ng-model="cOfC" data-ng-options="option.name for option in cOfCOptions track by option.value"></select>
+      </label>
+
+      <label class="item item-input item-select">
+        <span class="input-label">Focal Length (mm):</span>
+        <select data-ng-model="focal" data-ng-options="option.name for option in focalOptions track by option.value">
+        </select>
+      </label>
+
+      <label class="item item-input item-select">
+        <span class="input-label">F-Stop/Aperture:</span>
+        <select data-ng-model="aperture" data-ng-options="option.name for option in apertureOptions track by option.value"></select>
+      </label>
+
+      <label class="item item-input">
+        <span class="input-label">Distance (m):</span>
+        <input type="number" data-ng-model="distance.value">
+      </label>
+    </section>
+    <section class="list card">
+      <div class="item item-divider">Depth of Field</div>
+      <label class="item item-input">
+        <span class="input-label">Near Limit:</span>
+        {{nearDepth(cOfC, focal, aperture, distance.value)}} m
+      </div>
+    </div>
+  </ion-content>
+</ion-view>
