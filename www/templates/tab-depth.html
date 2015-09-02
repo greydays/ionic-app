@@ -19,35 +19,41 @@
       </label>
 
       <label class="item item-input">
-        <span class="input-label">Distance (m):</span>
+        <span class="input-label">Distance:</span>
         <input type="number" data-ng-model="distance.value">
       </label>
+
+      <label class="item item-input item-select">
+        <span class="input-label">Units:</span>
+        <select data-ng-model="units" data-ng-options="option.name for option in unitOptions track by option.value"></select>
+      </label>
+
     </section>
     <section class="list card">
       <div class="item item-divider">Depth of Field</div>
         <label class="item item-input">
         <span class="input-label">Near Limit:</span>
-        {{nearDepth(cOfC, focal, aperture, distance.value)}} m
+        {{nearDepth() | number:2}} m
         </label>
         <label class="item item-input">
         <span class="input-label">Far Limit:</span>
-        {{farDepth(cOfC, focal, aperture, distance.value)}} m
+        {{farDepth() | number:2}} m
         </label>
         <label class="item item-input">
           <span class="input-label">Total:</span>
-          {{}} m
+          {{totalDepth() | number:2}} m
         </label>
-        <label class="item item-input">
+        <!-- <label class="item item-input">
           <span class="input-label">In Front of:</span>
           {{}} m ({{}}%)
         </label>
         <label class="item item-input">
           <span class="input-label">Behind:</span>
           {{}} m ({{}}%)
-        </label>
+        </label> -->
         <label class="item item-input">
           <span class="input-label">Hyperfocal:</span>
-          {{}} m
+          {{hyperfocal() / 1000 | number:2}} m
         </label>
       </div>
     </section>

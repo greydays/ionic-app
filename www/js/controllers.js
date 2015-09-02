@@ -10,7 +10,7 @@ angular.module('starter.controllers', [])
     {name:'0.020', value: 0.020},
     {name:'0.030', value: 0.030}
   ];
-  $scope.cOfC = { value: 0.011};
+  $scope.cOfC = {value: 0.011};
 
   $scope.focalOptions = [
     {name: '3', value: 3},
@@ -315,28 +315,43 @@ angular.module('starter.controllers', [])
     {name:'f/45', value: 45.25483},
     {name:'f/64', value: 64}
   ];
-  $scope.aperture = { value: 1};
+  $scope.aperture = {value: 1};
 
-  $scope.distance = { value: 1};
+  $scope.distance = {value: 1};
 
-  $scope.nearDepth = function(cOfC, focal, aperture, distance) {
-    var focalVal = focal.value;
-    var apertureVal = aperture.value;
-    var cOfCVal = cOfC.value;
-    var distanceVal = parseFloat(distance) * 1000;
-    var hyperFocal = (focalVal * focalVal) / (apertureVal * cOfCVal) + focalVal;
-    var nearDepthCalc = (((hyperFocal - focalVal) * distanceVal) / (hyperFocal + distanceVal - (2 * focalVal))) / 1000.0;
-    return Math.round(nearDepthCalc * 100) / 100;
+  $scope.unitOptions = [
+    {name:'meters (m)', value: 1.0},
+    {name:'centermeters (cm)', value: 0.01},
+    {name:'feet (ft)', value: 0.3048},
+    {name:'inches (in)', value: 0.0254}
+  ];
+  $scope.units = 1;
+
+  $scope.hyperfocal = function() {
+    var distanceVal = parseFloat($scope.distance.value) * 1000;
+    var hyperfocVal = ($scope.focal.value * $scope.focal.value) / ($scope.aperture.value * $scope.cOfC.value) + $scope.focal.value;
+    return Math.round(hyperfocVal * 100) / 100;
   };
-  $scope.farDepth = function(cOfC, focal, aperture, distance) {
-    var focalVal = focal.value;
-    var apertureVal = aperture.value;
-    var cOfCVal = cOfC.value;
-    var distanceVal = parseFloat(distance) * 1000;
-    var hyperFocal = (focalVal * focalVal) / (apertureVal * cOfCVal) + focalVal;
-    var farDepthCalc = (((hyperFocal - focalVal) * distanceVal) / (hyperFocal - distanceVal)) / 1000.0;
-    return Math.round(farDepthCalc * 100) / 100;
+
+  $scope.nearDepth = function() {
+    var distanceVal = parseFloat($scope.distance.value) * 1000;
+    return ((($scope.hyperfocal() - $scope.focal.value) * distanceVal) / ($scope.hyperfocal() + distanceVal - (2 * $scope.focal.value))) / 1000.0;
   };
+
+  $scope.farDepth = function() {
+    var distanceVal = parseFloat($scope.distance.value) * 1000;
+    var farDepthCalc = ((($scope.hyperfocal() - $scope.focal.value) * distanceVal) / ($scope.hyperfocal() - distanceVal)) / 1000.0;
+    if (farDepthCalc >= 0) {
+      return farDepthCalc;
+    } else {
+      return "Infinite";
+    };
+  };
+
+  $scope.totalDepth = function() {
+    return $scope.farDepth() - $scope.nearDepth();
+  };
+
 }])
 
 .controller('ChatsCtrl', function($scope, Chats) {
